@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import JoblyApi from '../../../api/api';
 import CompanyCard from '../CompanyCard/CompanyCard';
+import SearchForm from '../../Common/SearchForm/SearchForm';
 import LoadingSpinner from '../../Common/LoadingSpinner/LoadingSpinner';
 
 function CompaniesList() {
@@ -24,13 +25,20 @@ function CompaniesList() {
   if (!companies) return <LoadingSpinner />;
 
   return (
-    <div>
+    <div className="CompanyList col-md-8 offset-md-2">
+      <SearchForm find={find} />
       {companies.length ? (
-        <p>
-          {companies.map((company) => (
-            <li>{company.name}</li>
+        <div>
+          {companies.map((c) => (
+            <CompanyCard
+              key={c.handle}
+              name={c.name}
+              description={c.description}
+              logoUrl={c.logoUrl}
+              handle={c.handle}
+            />
           ))}
-        </p>
+        </div>
       ) : (
         <p>No results match find criteria!</p>
       )}

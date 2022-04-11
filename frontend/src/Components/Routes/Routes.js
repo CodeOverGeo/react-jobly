@@ -16,9 +16,9 @@ import SignupForm from '../Auth/SignupForm/SignupForm';
  *
  */
 
-function Routing() {
+function Routing({ login, signup }) {
   return (
-    <div>
+    <div className="pt-5">
       <Routes>
         <Route exact path="/" element={<Homepage />}></Route>
 
@@ -34,9 +34,17 @@ function Routing() {
 
         <Route exact path="/profile" element={<ProfileForm />}></Route>
 
-        <Route exact path="/login" element={<LoginForm />}></Route>
+        <Route
+          exact
+          path="/login"
+          element={<LoginForm login={login} />}
+        ></Route>
 
-        <Route exact path="/signup" element={<SignupForm />}></Route>
+        <Route
+          exact
+          path="/signup"
+          element={<SignupForm signup={signup} />}
+        ></Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

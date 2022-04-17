@@ -4,10 +4,10 @@ import JoblyApi from '../../api/api';
 import Navigation from '../Navigation/Navigation';
 import Routing from '../Routes/Routes';
 import useLocalStorage from '../../Hooks/useLocalStorage';
-import jwt from 'jsonwebtoken';
-import './App.css';
+import { decodeToken } from 'react-jwt';
 import LoadingSpinner from '../Common/LoadingSpinner/LoadingSpinner';
 import UserContext from '../Auth/UserContext';
+import './App.css';
 
 export const TOKEN_STORAGE_ID = 'jobly-token';
 
@@ -22,7 +22,7 @@ function App() {
       async function getCurrentUser() {
         if (token) {
           try {
-            let { username } = jwt.decode(token);
+            let { username } = decodeToken(token);
             JoblyApi.token = token;
             let currentUser = await JoblyApi.getCurrentUser(username);
             setCurrentUser(currentUser);
@@ -67,11 +67,23 @@ function App() {
     }
   }
 
+  function hasAppliedToJob(id) {
+    return applicationIds.has(id);
+  }
+
+  function applyToJob(id) {
+    if (hasAppliedToJob(id)) return;
+    JoblyApi.applyToJob(currentUser.username, id);
+    setApplicationIds(new Set([...applicationIds, id]));
+  }
+
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <UserContext.Provider
+        value={{ currentUser, setCurrentUser, hasAppliedToJob, applyToJob }}
+      >
         <div className="App">
           <Navigation logout={logout} />
           <Routing login={login} signup={signup} />

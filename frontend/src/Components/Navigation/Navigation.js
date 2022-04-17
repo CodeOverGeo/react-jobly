@@ -9,16 +9,21 @@ function Navigation({ logout }) {
   function loggedInNav() {
     return (
       <div>
-        <LinkContainer to="/companies">
-          <Nav.Link>Companies</Nav.Link>
-        </LinkContainer>
-        <LinkContainer to="/jobs">
-          <Nav.Link>Jobs</Nav.Link>
-        </LinkContainer>
-
         <Nav className="justify-content-end">
+          <LinkContainer to="/companies">
+            <Nav.Link>Companies</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/jobs">
+            <Nav.Link>Jobs</Nav.Link>
+          </LinkContainer>
+
           <LinkContainer to="/profile">
             <Nav.Link>Profile</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/" onClick={logout}>
+            <Nav.Link>
+              Logout {currentUser.first_name || currentUser.username}
+            </Nav.Link>
           </LinkContainer>
         </Nav>
       </div>
@@ -51,9 +56,8 @@ function Navigation({ logout }) {
             <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
-
-            {currentUser ? loggedInNav() : loggedOutNav()}
           </Nav>
+          {currentUser ? loggedInNav() : loggedOutNav()}
         </Navbar.Collapse>
       </Container>
     </Navbar>

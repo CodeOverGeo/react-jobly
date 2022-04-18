@@ -8,15 +8,15 @@ function LoginForm({ login }) {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [formErrors, setFormErrors] = useState([]);
 
-  console.debug(
-    'LoginForm',
-    'login=',
-    typeof login,
-    'formData=',
-    formData,
-    'formErrors',
-    formErrors
-  );
+  // console.debug(
+  //   'LoginForm',
+  //   'login=',
+  //   typeof login,
+  //   'formData=',
+  //   formData,
+  //   'formErrors',
+  //   formErrors
+  // );
 
   async function handleSubmit(e) {
     e.preventDefault();

@@ -7,6 +7,7 @@ import CompanyDetail from '../Companies/CompanyDetail/CompanyDetail';
 import ProfileForm from '../ProfileForm/ProfileForm';
 import LoginForm from '../Auth/LoginForm/LoginForm';
 import SignupForm from '../Auth/SignupForm/SignupForm';
+import PrivateRoute from './PrivateRoute';
 
 /** Routes for site
  *
@@ -22,17 +23,45 @@ function Routing({ login, signup }) {
       <Routes>
         <Route exact path="/" element={<Homepage />}></Route>
 
-        <Route exact path="/companies" element={<CompaniesList />}></Route>
+        <Route
+          exact
+          path="/companies"
+          element={
+            <PrivateRoute>
+              <CompaniesList />
+            </PrivateRoute>
+          }
+        ></Route>
 
         <Route
           exact
           path="/companies/:handle"
-          element={<CompanyDetail />}
+          element={
+            <PrivateRoute>
+              <CompanyDetail />
+            </PrivateRoute>
+          }
         ></Route>
 
-        <Route exact path="/jobs" element={<JobList />}></Route>
+        <Route
+          exact
+          path="/jobs"
+          element={
+            <PrivateRoute>
+              <JobList />
+            </PrivateRoute>
+          }
+        ></Route>
 
-        <Route exact path="/profile" element={<ProfileForm />}></Route>
+        <Route
+          exact
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <ProfileForm />
+            </PrivateRoute>
+          }
+        ></Route>
 
         <Route
           exact

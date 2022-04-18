@@ -9,7 +9,6 @@ function JobCard({ id, title, salary, equity, companyName }) {
 
   useEffect(
     function updateAppliedStatus() {
-      console.debug('JobCard useEffect updateAppliedStatus', 'id=', id);
       setApplied(hasAppliedToJob(id));
     },
     [id, hasAppliedToJob]
